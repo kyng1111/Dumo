@@ -11,6 +11,8 @@ public class ResultActivity extends AppCompatActivity {
     TextView TextView_password;
     TextView cummit22;
 
+    // 아 왜 안돼
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
