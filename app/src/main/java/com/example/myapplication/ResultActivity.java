@@ -9,6 +9,7 @@ public class ResultActivity extends AppCompatActivity {
 
     TextView TextView_id;
     TextView TextView_password;
+    TextView cummit22;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
