@@ -13,6 +13,8 @@ public class ResultActivity extends AppCompatActivity {
 
     // 아 왜 안돼
 
+    //ㄱㄲ?
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
