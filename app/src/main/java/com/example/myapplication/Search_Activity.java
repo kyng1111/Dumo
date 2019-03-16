@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,7 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,52 +32,43 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class Search_Activity extends AppCompatActivity {
+public class Search_Activity extends Fragment {
 
     private static String IP_ADDRESS = "13.125.216.189";
     private static String TAG = "phptest";
 
     private EditText mEditTextName;
     private EditText mEditTextCountry;
-    private TextView mTextViewResult;
     private ArrayList<PersonalData> mArrayList;
     private UsersAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private EditText mEditTextSearchKeyword;
     private String mJsonString;
-
+    private String searched;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_recycle);
-
-        mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
-        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mTextViewResult.setMovementMethod(new ScrollingMovementMethod());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
+        View view = inflater.inflate( R.layout.search_recycle, container, false );
+        searched = getArguments().getString("searched");
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.listView_main_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
 
         mArrayList = new ArrayList<>();
 
-        mAdapter = new UsersAdapter(this, mArrayList);
+        mAdapter = new UsersAdapter(getActivity(), mArrayList);
         mRecyclerView.setAdapter(mAdapter);
 
+        mArrayList.clear();
+        mAdapter.notifyDataSetChanged();
 
-        Button button_all = (Button) findViewById(R.id.button_main_all);
-        button_all.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        GetData task = new GetData();
+        task.execute( "http://" + IP_ADDRESS + "/search8.php", "");
 
-                mArrayList.clear();
-                mAdapter.notifyDataSetChanged();
 
-                GetData task = new GetData();
-                task.execute( "http://" + IP_ADDRESS + "/search8.php", "");
-            }
-        });
 
+        return view;
     }
 
 
@@ -88,7 +82,7 @@ public class Search_Activity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Search_Activity.this,
+            progressDialog = ProgressDialog.show(getActivity(),
                     "Please Wait", null, true, true);
         }
 
@@ -98,12 +92,10 @@ public class Search_Activity extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-            mTextViewResult.setText(result);
             Log.d(TAG, "response - " + result);
 
             if (result == null){
 
-                mTextViewResult.setText(errorString);
             }
             else {
 
@@ -117,7 +109,7 @@ public class Search_Activity extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             String serverURL = params[0];
-            String postParameters = params[1];
+            String postParameters = "searched="+searched;
 
 
             try {
@@ -200,7 +192,6 @@ public class Search_Activity extends AppCompatActivity {
                 String name = item.getString(TAG_NAME);
                 String lat = item.getString(TAG_LAT);
                 String lon = item.getString(TAG_LON);
-                String update = item.getString(TAG_UPDATE);
                 String isok = item.getString(TAG_ISOK);
                 String num = item.getString(TAG_NUM);
 
@@ -209,7 +200,6 @@ public class Search_Activity extends AppCompatActivity {
                 personalData.setMember_name(name);
                 personalData.setMember_lat(lat);
                 personalData.setMember_lon(lon);
-                personalData.setMember_update(update);
                 personalData.setMember_isok(isok);
                 personalData.setMember_num(num);
 
