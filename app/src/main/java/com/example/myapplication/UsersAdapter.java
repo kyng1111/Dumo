@@ -24,16 +24,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView id;
         protected TextView name;
-        protected TextView country;
+        protected TextView lat;
+        protected TextView lon;
+        protected TextView update;
+        protected TextView isok;
+        protected TextView num;
 
 
         public CustomViewHolder(View view) {
             super(view);
-            this.id = (TextView) view.findViewById(R.id.textView_list_id);
             this.name = (TextView) view.findViewById(R.id.textView_list_name);
-            this.country = (TextView) view.findViewById(R.id.textView_list_country);
+            this.lat = (TextView) view.findViewById(R.id.textView_list_lat);
+            this.lon = (TextView) view.findViewById(R.id.textView_list_lon);
+            this.update = (TextView) view.findViewById(R.id.textView_list_update);
+            this.isok = (TextView) view.findViewById(R.id.textView_list_isok);
+            this.num = (TextView) view.findViewById(R.id.textView_list_num);
         }
     }
 
@@ -49,9 +55,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.CustomViewHo
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
 
-        viewholder.id.setText(mList.get(position).getMember_id());
         viewholder.name.setText(mList.get(position).getMember_name());
-        viewholder.country.setText(mList.get(position).getMember_country());
+        viewholder.lat .setText(mList.get(position).getMember_lat());
+        viewholder.lon .setText(mList.get(position).getMember_lon());
+        viewholder.update.setText(mList.get(position).getMember_update());
+        viewholder.isok.setText(mList.get(position).getMember_isok());
+        viewholder.num .setText(mList.get(position).getMember_num());
     }
 
     @Override

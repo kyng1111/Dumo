@@ -7,7 +7,7 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/textView_list_id"
+        android:id="@+id/textView_list_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -15,7 +15,7 @@
 
 
     <TextView
-        android:id="@+id/textView_list_name"
+        android:id="@+id/textView_list_lat"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -23,7 +23,28 @@
 
 
     <TextView
-        android:id="@+id/textView_list_country"
+        android:id="@+id/textView_list_lon"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/textView_list_update"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/textView_list_isok"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/textView_list_num"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

@@ -71,7 +71,7 @@ public class Search_Activity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
 
                 GetData task = new GetData();
-                task.execute( "http://" + IP_ADDRESS + "/search5.php", "");
+                task.execute( "http://" + IP_ADDRESS + "/search8.php", "");
             }
         });
 
@@ -181,9 +181,12 @@ public class Search_Activity extends AppCompatActivity {
     private void showResult(){
 
         String TAG_JSON="webnautes";
-        String TAG_ID = "Store_Name";
         String TAG_NAME = "Store_Name";
-        String TAG_COUNTRY ="Store_Name";
+        String TAG_LAT = "Store_Lat";
+        String TAG_LON ="Store_Lon";
+        String TAG_UPDATE = "Store_Update";
+        String TAG_ISOK = "Store_isOK";
+        String TAG_NUM ="Store_Num";
 
 
         try {
@@ -194,15 +197,21 @@ public class Search_Activity extends AppCompatActivity {
 
                 JSONObject item = jsonArray.getJSONObject(i);
 
-                String id = item.getString(TAG_ID);
                 String name = item.getString(TAG_NAME);
-                String country = item.getString(TAG_COUNTRY);
+                String lat = item.getString(TAG_LAT);
+                String lon = item.getString(TAG_LON);
+                String update = item.getString(TAG_UPDATE);
+                String isok = item.getString(TAG_ISOK);
+                String num = item.getString(TAG_NUM);
 
                 PersonalData personalData = new PersonalData();
 
-                personalData.setMember_id(id);
                 personalData.setMember_name(name);
-                personalData.setMember_country(country);
+                personalData.setMember_lat(lat);
+                personalData.setMember_lon(lon);
+                personalData.setMember_update(update);
+                personalData.setMember_isok(isok);
+                personalData.setMember_num(num);
 
                 mArrayList.add(personalData);
                 mAdapter.notifyDataSetChanged();
