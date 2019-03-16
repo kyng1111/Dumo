@@ -21,6 +21,8 @@ public class ResultActivity extends AppCompatActivity {
 
     //마지막
 
+    //ㄴㅇ런야ㅐ러내야러
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
