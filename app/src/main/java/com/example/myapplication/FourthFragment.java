@@ -12,6 +12,9 @@ public class FourthFragment extends Fragment {
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         View view = inflater.inflate( R.layout.fourth_fragment, container, false );
         return view;
+
+
+
         //되나연
 
         //지짖

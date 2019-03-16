@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:gravity="center">
 
-    <TextView
-        android:id="@+id/helloworld"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Second Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+<EditText
+    android:id="@+id/Search"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="검색어를 입력하시오"
+    />
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="검색"/>
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
