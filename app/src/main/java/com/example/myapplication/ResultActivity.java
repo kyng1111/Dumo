@@ -10,6 +10,8 @@ public class ResultActivity extends AppCompatActivity {
     TextView TextView_id;
     TextView TextView_password;
 
+    // 되냐? 되냐?
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
