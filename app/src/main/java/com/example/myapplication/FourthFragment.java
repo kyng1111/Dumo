@@ -14,8 +14,6 @@ public class FourthFragment extends Fragment {
         return view;
         //되나연
 
-        //컨플릭트 제발 제발여
-
-        
+        //지짖
     }
 }
