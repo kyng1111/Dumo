@@ -3,15 +3,18 @@ package com.example.myapplication;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.view.LayoutInflater;
 import android.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.naver.maps.map.MapView;
+import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
+import com.naver.maps.map.OnMapReadyCallback;
 
-public class ThirdFragment extends Fragment {
+public class ThirdFragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
 
     @Override
@@ -26,6 +29,7 @@ public class ThirdFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mapView = view.findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
     }
 
     @Override
@@ -68,6 +72,12 @@ public class ThirdFragment extends Fragment {
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @UiThread
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        // ...
     }
 
 }
