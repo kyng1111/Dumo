@@ -25,8 +25,6 @@ import java.net.URL;
 
 public class Sign_up_activity extends AppCompatActivity {
 
-    public static Activity Sign_up_activity;
-
     private static String IP_ADDRESS = "13.125.216.189";
     private static String TAG = "phptest";
 
@@ -43,7 +41,6 @@ public class Sign_up_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_layout);
 
-        Sign_up_activity = Sign_up_activity.this;
 
         mEditTextId = (EditText)findViewById(R.id.Sign_up_id);
         mEditTextPassword = (EditText)findViewById(R.id.Sign_up_pw);

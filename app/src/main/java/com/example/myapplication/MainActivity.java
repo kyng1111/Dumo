@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment1;
 
     Sign_in_activity sign_in_activity = (Sign_in_activity)Sign_in_activity.Sign_in_activity;
-    Sign_up_activity sign_up_activity = (Sign_up_activity)Sign_up_activity.Sign_up_activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sign_in_activity.finish();
-        sign_up_activity.finish();
 
         fragment1 = new FirstFragment();
         FragmentManager fragmentManager = getFragmentManager();
