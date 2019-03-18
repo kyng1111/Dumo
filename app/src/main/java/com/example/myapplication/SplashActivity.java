@@ -29,12 +29,6 @@ public class SplashActivity extends AppCompatActivity {
     private static String IP_ADDRESS = "13.125.216.189";
     private static String TAG = "phptest";
 
-    private EditText mEditTextName;
-    private EditText mEditTextCountry;
-    private ArrayList<PersonalData> mArrayList;
-    private UsersAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private EditText mEditTextSearchKeyword;
     private String mJsonString;
     private String message;
     private String background;
@@ -55,7 +49,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private class GetData extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog;
         String errorString = null;
 
         @Override
