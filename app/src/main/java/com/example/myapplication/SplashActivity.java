@@ -1,87 +1,60 @@
 package com.example.myapplication;
 
-import android.app.Fragment;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+public class SplashActivity extends AppCompatActivity {
 
-public class Search_Activity extends Fragment {
 
     private static String IP_ADDRESS = "13.125.216.189";
     private static String TAG = "phptest";
 
-    private EditText mEditTextName;
-    private EditText mEditTextCountry;
-    private ArrayList<PersonalData> mArrayList;
-    private UsersAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private EditText mEditTextSearchKeyword;
     private String mJsonString;
-    private String searched;
+    private String message;
+    private String background;
+    private int isOn;
+
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
-        View view = inflater.inflate( R.layout.search_recycle, container, false );
-        searched = getArguments().getString("searched");
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.listView_main_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
 
 
+        SplashActivity.GetData task = new SplashActivity.GetData();
+        task.execute( "http://" + IP_ADDRESS + "/splash.php", "");
 
-        mArrayList = new ArrayList<>();
-        mAdapter = new UsersAdapter(getActivity(), mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-        mArrayList.clear();
-        mAdapter.notifyDataSetChanged();
-
-        GetData task = new GetData();
-        task.execute( "http://" + IP_ADDRESS + "/search8.php", "");
-
-
-
-        return view;
     }
 
+    private class GetData extends AsyncTask<String, Void, String> {
 
-
-    private class GetData extends AsyncTask<String, Void, String>{
-
-        ProgressDialog progressDialog;
         String errorString = null;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(getActivity(),
-                    "Please Wait", null, true, true);
         }
 
 
@@ -89,16 +62,25 @@ public class Search_Activity extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            progressDialog.dismiss();
             Log.d(TAG, "response - " + result);
-
             if (result == null){
-
             }
             else {
-
                 mJsonString = result;
                 showResult();
+
+                if(isOn == 1) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                }
+                else{
+                    show(message);
+                }
             }
         }
 
@@ -107,8 +89,7 @@ public class Search_Activity extends Fragment {
         protected String doInBackground(String... params) {
 
             String serverURL = params[0];
-            String postParameters = "searched="+searched;
-
+            String postParameters = params[1];
 
             try {
 
@@ -171,48 +152,42 @@ public class Search_Activity extends Fragment {
     private void showResult(){
 
         String TAG_JSON="webnautes";
-        String TAG_NAME = "Store_Name";
-        String TAG_LAT = "Store_Lat";
-        String TAG_LON ="Store_Lon";
-        String TAG_UPDATE = "Store_Update";
-        String TAG_ISOK = "Store_isOK";
-        String TAG_NUM ="Store_Num";
+        String TAG_MESSAGE = "Server_Message";
+        String TAG_BACKGROUND = "Server_Background";
+        String TAG_ISON = "Server_isON";
 
 
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
-            for(int i=0;i<jsonArray.length();i++){
+                JSONObject item = jsonArray.getJSONObject(0);
 
-                JSONObject item = jsonArray.getJSONObject(i);
+            message = item.getString(TAG_MESSAGE);
+            background = item.getString(TAG_BACKGROUND);
+            isOn = item.getInt(TAG_ISON);
 
-                String name = item.getString(TAG_NAME);
-                String lat = item.getString(TAG_LAT);
-                String lon = item.getString(TAG_LON);
-                String isok = item.getString(TAG_ISOK);
-                String num = item.getString(TAG_NUM);
-
-                PersonalData personalData = new PersonalData();
-
-                personalData.setMember_name(name);
-                personalData.setMember_lat(lat);
-                personalData.setMember_lon(lon);
-                personalData.setMember_isok(isok);
-                personalData.setMember_num(num);
-
-                mArrayList.add(personalData);
-                mAdapter.notifyDataSetChanged();
             }
 
 
 
-        } catch (JSONException e) {
-
+         catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
 
     }
 
-}
+    void show(String message)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setPositiveButton("나가기",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                });
+        builder.show();
+    }
 
+}
