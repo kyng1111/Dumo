@@ -14,5 +14,3 @@ public class FirstFragment extends Fragment {
         return view;
     }
 }
-
-//커밋합니다111당
