@@ -9,19 +9,6 @@ public class ResultActivity extends AppCompatActivity {
 
     TextView TextView_id;
     TextView TextView_password;
-    TextView cummit22;
-
-    // ??
-
-    // 아 왜 안돼
-
-    //ㄱㄲ?
-
-    // 되냐? 되냐?
-
-    //마지막
-
-    //ㄴㅇ런야ㅐ러내야러
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

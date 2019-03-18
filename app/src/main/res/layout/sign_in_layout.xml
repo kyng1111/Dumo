@@ -24,7 +24,7 @@
         android:hint="Password"/>
 
     <Button
-        android:id="@+id/Sign_In_btn"
+        android:id="@+id/Sign_in_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In"/>
@@ -34,5 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"/>
+
+    <TextView
+        android:id="@+id/Sign_in_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
