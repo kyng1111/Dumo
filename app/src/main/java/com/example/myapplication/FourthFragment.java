@@ -14,9 +14,5 @@ public class FourthFragment extends Fragment {
         return view;
 
 
-
-        //되나연
-
-        //지짖
     }
 }
